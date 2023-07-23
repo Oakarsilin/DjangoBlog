@@ -18,8 +18,7 @@ def about_view (request):
     return render (request, 'about.html')
 
 def register_view (request):
-    form = Registration()
-    user = User()
+    form = Registration(request.POST)
     # if request.method == 'POST':
     #     username = request.POST.get ('username')
     #     password = request.POST['password']
@@ -31,5 +30,5 @@ def register_view (request):
     if form.is_valid():
         cleaned_form = form.clean()
         User.objects.create (**cleaned_form)
-        return render (request, 'home.html', {'form' : form})
+        return render (request, 'home.html')
     return render (request, 'register.html',  {'form' : form})
