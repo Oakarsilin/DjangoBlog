@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+        <title>Django Blog - {{ title }}</title>
+    {% else %}
+        <title>Django Blog</title>
+    {% endif %}
+    <link rel="stylesheet" href="{% static '/bootstrap/dist/css/bootstrap.min.css' %}">
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    <script src="{% static '/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
