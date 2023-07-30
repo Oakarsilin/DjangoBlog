@@ -1,5 +1,14 @@
 {% extends "master.html" %}
 {% block content %}
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-danger" role="alert">
+    {{ messages }}
+</div>
+{% endfor %}
+{% endif %}
+
 <form action="" method="post">
     {% csrf_token %}
     <!-- <div>
