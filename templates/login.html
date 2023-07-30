@@ -1,0 +1,18 @@
+{% extends "master.html" %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <!-- <div>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter Username">
+    </div>
+    <br>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter Password">
+    </div> -->
+    {{ form.as_div}}
+    <br>
+    <button type="submit">Login</button>
+</form>
+{% endblock %}
