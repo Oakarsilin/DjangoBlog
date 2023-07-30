@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import Registration, Login
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 
@@ -17,8 +18,9 @@ def register_view (request):
     #     return render (request, 'register.html', {'form' : form})
     if form.is_valid():
         cleaned_form = form.clean()
+        cleaned_form['password'] = make_password (cleaned_form['password'])
         User.objects.create (**cleaned_form)
-        return render (request, 'home.html')
+        return render (request, 'login.html')
     return render (request, 'register.html', {'form' : form})
 
 def login_view (request):
@@ -29,7 +31,7 @@ def login_view (request):
         if user is not None:
             auth.login (request, user)
             return render (request, 'userhomepage.html')
-        messages.error (request, 'wrong credential')
+        messages.error (request, 'Wrong username or password !!')
     return render (request, 'login.html', {'form' : form})
 
 def logout_view (request):

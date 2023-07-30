@@ -1,6 +1,6 @@
 {% extends "master.html" %}
 {% block content %}
-<div style="border: 1px solid black;">
+<div style="border: 1px solid black; margin-bottom: 20px;">
     <div>Name : {{ name }}</div>
     <div>Age : {{ age }}</div>
     <div>Job : {{ job }}</div>
@@ -12,11 +12,11 @@
         {% endfor %}
     </ul>
 </div>
-<div>
-    <img src="{{ MEDIA_URL }}car.jpg" alt="">
-</div>
-<br>
 <a class="btn btn-primary" href="{% url 'blog.about' %}">Go To About Page</a>
 <a class="btn btn-primary" href="{% url 'blog.register' %}">Create an account</a>
 <a class="btn btn-primary" href="{% url 'blog.login' %}">Login</a>
+<br>
+<div style="margin-top: 20px;">
+    <img src="{{ MEDIA_URL }}car.jpg" alt="">
+</div>
 {% endblock %}

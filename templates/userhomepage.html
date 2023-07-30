@@ -1,5 +1,5 @@
 {% extends "master.html" %}
 {% block content %}
-<h1>Welcome, {{ user.get_usernme }}</h1>
+<h1>Welcome, {{ user.get_username }}</h1>
 <a href="{% url 'blog.logout' %}">Logout</a>
 {% endblock %}
