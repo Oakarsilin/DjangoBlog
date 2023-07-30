@@ -15,7 +15,8 @@
 <div>
     <img src="{{ MEDIA_URL }}car.jpg" alt="">
 </div>
-<div><a class="btn btn-primary" href="{% url 'blog.about' %}">Go To About Page</a></div>
 <br>
-<div><a class="btn btn-primary" href="{% url 'blog.register' %}">Create an account</a></div>
+<a class="btn btn-primary" href="{% url 'blog.about' %}">Go To About Page</a>
+<a class="btn btn-primary" href="{% url 'blog.register' %}">Create an account</a>
+<a class="btn btn-primary" href="{% url 'blog.login' %}">Login</a>
 {% endblock %}
