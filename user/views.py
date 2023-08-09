@@ -20,7 +20,7 @@ def register_view (request):
         cleaned_form = form.clean()
         cleaned_form['password'] = make_password (cleaned_form['password'])
         User.objects.create (**cleaned_form)
-        return render (request, 'login.html')
+        return redirect ('blog.home')
     return render (request, 'register.html', {'form' : form})
 
 def login_view (request):
@@ -30,7 +30,7 @@ def login_view (request):
         user = auth.authenticate (**get_credential)
         if user is not None:
             auth.login (request, user)
-            return render (request, 'userhomepage.html')
+            return redirect ('todolist.all')
         messages.error (request, 'Wrong username or password !!')
     return render (request, 'login.html', {'form' : form})
 
