@@ -1,8 +1,7 @@
 {% extends "master.html" %}
 {% block content %}
-<h1>About Page</h1>
+<h1>About Us</h1>
 <br>
-<a href="{% url 'blog.home' %}">Go To Home Page</a>
-<br>
-<a href="{% url 'blog.register' %}">Create Account</a>
+<a class="btn btn-primary" href="{% url 'blog.home' %}">Go To Home Page</a>
+<a class="btn btn-primary" href="{% url 'blog.register' %}">Create Account</a>
 {% endblock %}

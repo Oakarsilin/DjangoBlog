@@ -1,20 +1,26 @@
 {% extends "master.html" %}
 {% block content %}
-<div style="border: 1px solid black; margin-bottom: 20px;">
-    <div>Name : {{ name }}</div>
-    <div>Age : {{ age }}</div>
-    <div>Job : {{ job }}</div>
-    <div>Address : {{ address }}</div>
-    <div style="text-decoration: underline;">Skills</div>
-    <ul>
-        {% for skill in skills %}
-            <li>{{ skill }}</li>
-        {% endfor %}
-    </ul>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-info" role="alert">
+    {{ message }}
 </div>
-<a class="btn btn-primary" href="{% url 'blog.about' %}">Go To About Page</a>
-<a class="btn btn-primary" href="{% url 'blog.register' %}">Create an account</a>
+{% endfor %}
+{% endif %}
+
+<ul class="list-group">
+    <li class="list-group-item">Name : {{ name }}</li>
+    <li class="list-group-item">Age : {{ age }}</li>
+    <li class="list-group-item">Job : {{ job }}</li>
+    <li class="list-group-item">Address : {{ address }}</li>
+    <li class="list-group-item">Skills : {% for skill in skills %} {{ skill }}, {% endfor %}</li>
+    </li>
+</ul>
+<br>
+<a class="btn btn-primary" href="{% url 'blog.about' %}">About Us</a>
+<a class="btn btn-primary" href="{% url 'blog.register' %}">Create New Account</a>
 <a class="btn btn-primary" href="{% url 'blog.login' %}">Login</a>
+<a class="btn btn-primary" href="{% url 'todolist.all' %}">To Do List</a>
 <br>
 <div style="margin-top: 20px;">
     <img src="{{ MEDIA_URL }}car.jpg" alt="">

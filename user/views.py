@@ -25,6 +25,7 @@ def register_view (request):
 
 def login_view (request):
     form = Login(request.POST) if request.method == "POST" else Login()
+    context = {'title' : 'Login'}
     if form.is_valid():
         get_credential = form.clean()
         user = auth.authenticate (**get_credential)
@@ -36,4 +37,5 @@ def login_view (request):
 
 def logout_view (request):
     auth.logout(request)
+    messages.success(request, message='You have been logged out', fail_silently=True)
     return redirect('blog.home')

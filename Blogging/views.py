@@ -14,4 +14,5 @@ def home_view (request):
     return render (request, 'home.html', context=context)
 
 def about_view (request):
-    return render (request, 'about.html')
+    context = {'title' : 'About us',}
+    return render (request, 'about.html', context=context)
