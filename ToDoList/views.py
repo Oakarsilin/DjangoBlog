@@ -26,7 +26,7 @@ def todoListCreate(request):
     if form.is_valid():
         get_data = form.clean()
         todoList.objects.create (**get_data)
-        messages.success(request, message='Create Successful', fail_silently=True)
+        messages.success(request, message='New Task Added', fail_silently=True)
         return redirect ('todolist.all')
     return render (request, 'todolistCreate.html', {'form':form})
 
