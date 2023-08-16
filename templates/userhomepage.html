@@ -11,7 +11,7 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">List Menu</a>
+      <a class="navbar-brand" href="#">Menu</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -57,6 +57,7 @@
             <th scope="col">Task</th>
             <th scope="col">Action</th>
             <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -66,7 +67,13 @@
             <td><b>{{ item.title }}</b></td>
             <td>{{ item.description }}</td>
             <td>{{ item.get_action_display }}</td>
-            <td><a href="{% url 'todolist.update' item.id %}" class="btn btn-outline-danger">Edit</a></td>
+            <td><a href="{% url 'todolist.update' item.id %}" class="btn btn-outline-warning">Edit</a></td>
+            <td>
+              <form action="{% url 'todolist.delete' item.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-outline-danger">Delete</button>
+              </form>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
