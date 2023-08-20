@@ -1,10 +1,12 @@
-from django import forms
+from typing import Dict
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.urls import reverse_lazy
 from .forms import todolistForm, WidgetOR, Styling
 from .models import todoList
 
@@ -26,8 +28,9 @@ def todoListCreate(request):
     form = todolistForm (request.POST) if request.method == "POST" else todolistForm()
     if form.is_valid():
         get_data = form.clean()
-        todoList.objects.create (**get_data)
-        messages.success(request, message='New Task Added Successfully!!', fail_silently=True)
+        item = todoList.objects.create (**get_data)
+        new_message = f'Title : {item.title} New Task Added Successfully!!'
+        messages.success(request, message=new_message, fail_silently=True)
         return redirect ('todolist.all')
     return render (request, 'todolistCreate.html', {'form':form})
 
@@ -50,12 +53,13 @@ def todoListCreate(request):
 #     form.fields['description'].widget = WidgetOR(forms.Textarea, Styling.task, 'textarea').createFormObj(value=todolist.description)
 #     return render (request, 'todoListUpdate.html', {'form':form})
 
-class todoListUpdate (LoginRequiredMixin, UpdateView):
+class todoListUpdate (LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     login_url = '/account/login/'
     model = todoList
     template_name = 'todoListUpdate.html'
     form_class = todolistForm
     success_url = '/todolist/allitem/'
+    success_message =  'Task Edited Successfully!!'
     # fields = ['title', 'description', 'action']
 
 # @login_required(login_url='/account/login/')
@@ -68,8 +72,23 @@ class todoListUpdate (LoginRequiredMixin, UpdateView):
 #         return redirect ('todolist.all')
 #     return redirect ('todolist.all')
 
-class todoListDelete (LoginRequiredMixin, DeleteView):
+class todoListDelete (LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     login_url = '/account/login/'
     model = todoList
-    template_name = 'userhomepage.html'
-    success_url = '/todolist/allitem/'
+    form_class = todolistForm
+    template_name = 'todolistDelete.html'
+    # success_url = '/todolist/allitem/'
+    success_url = reverse_lazy('todolist.all')
+    success_message =  "Title : %(title)s was Deleted Successfully!!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        item = self.get_object()
+        context['form'] = self.form_class (instance=item)
+        return context
+    
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            cleaned_data,
+            title=self.object.title,
+        )
